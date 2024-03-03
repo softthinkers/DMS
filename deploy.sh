@@ -7,7 +7,7 @@ ENVIRONMENT=$1
 
 # Set Databricks API URL based on environment
 if [ "$ENVIRONMENT" == "dev" ]; then
-    DATABRICKS_URL="https://adb-7800435272573232.12.azuredatabricks.net/?o=7800435272573232"
+    DATABRICKS_URL="https://adb-7800435272573232.12.azuredatabricks.net/browse/folders/workspace?o=7800435272573232"
 
 else
     echo "Invalid environment. Supported environments: dev, prod"
@@ -15,7 +15,7 @@ else
 fi
 
 # Set the path to the notebook to be deployed
-NOTEBOOK_PATH="path/to/your/notebook"
+NOTEBOOK_PATH="/*"
 
 # Set the name of the notebook in Databricks
 NOTEBOOK_NAME="your_notebook_name"
