@@ -7,9 +7,8 @@ ENVIRONMENT=$1
 
 # Set Databricks API URL based on environment
 if [ "$ENVIRONMENT" == "dev" ]; then
-    DATABRICKS_URL="https://your-dev-workspace-url/api/2.0"
-elif [ "$ENVIRONMENT" == "prod" ]; then
-    DATABRICKS_URL="https://your-prod-workspace-url/api/2.0"
+    DATABRICKS_URL="https://adb-7800435272573232.12.azuredatabricks.net/?o=7800435272573232"
+
 else
     echo "Invalid environment. Supported environments: dev, prod"
     exit 1
