@@ -13,19 +13,17 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
+    - name: Debug Branch Name
+      run: echo "Branch Name: ${{ github.ref }}"
 
-    - name: Install Dependencies
-      run: |
-        pip install databricks-cli
-        # Add other dependencies
-
-    - name: Deploy to Databricks
+    - name: Deploy to Databricks - Dev
       run: |
         if [ ${{ github.ref == 'refs/heads/main' }} ]; then
+          echo "Deploying to main branch..."
           databricks configure --token "${{ secrets.DATABRICKS_TOKEN }}" --host "${{ secrets.DATABRICKS_WORKSPACE_URL }}"
           # Add commands to deploy ETL to Databricks
+          echo "Deployment successful!"
+        else
+          echo "Not deploying. Workflow only configured for the main branch."
+          exit 1  # Exit with an error code to indicate failure
         fi
