@@ -1,4 +1,4 @@
-name: Databricks CI/CD
+name: CI/CD for Azure Databricks
 
 on:
   push:
@@ -6,20 +6,26 @@ on:
       - main
 
 jobs:
-  dev:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Deploy to Dev Databricks Workspace
-        env:
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: |
-          chmod +x deploy.sh
-          ./deploy.sh dev
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-   
+    - name: Install Dependencies
+      run: |
+        pip install databricks-cli
+        # Add other dependencies
 
-
+    - name: Deploy to Databricks
+      run: |
+        if [ ${{ github.ref == 'refs/heads/main' }} ]; then
+          databricks configure --token "${{ secrets.DATABRICKS_TOKEN }}" --host "${{ secrets.DATABRICKS_WORKSPACE_URL }}"
+          # Add commands to deploy ETL to Databricks
+        fi
